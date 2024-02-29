@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+
 import com.example.androidretrofitjava.R;
 import com.example.androidretrofitjava.adapter.RecyclerViewAdapter;
 import com.example.androidretrofitjava.model.CryptoModel;
@@ -19,12 +20,11 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -59,19 +59,27 @@ public class MainActivity extends AppCompatActivity {
         retrofit=new Retrofit.Builder().baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
+
         loadData();
+
+
+
 
 
     }
 
     private void loadData(){
 
+
+
         final CryptoAPI cryptoAPI=retrofit.create(CryptoAPI.class);
         compositeDisposable=new CompositeDisposable();
         compositeDisposable.add(cryptoAPI.getData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::handleResponse)
+                .subscribe(this::handleResponse) //burada ben api den bilguileri aldim ve handleReponse methodundaki PArametreye atdim ve bu method da bu donen bilgileri isledi.
+                //gelen veriler List<CryptoModel> turunden olacagi icin handle eden Methiod da parametre olarak bunu alacak ve isleyecek.
+                //this::handleResponse ifadesi, Observable'ın sonucunu işlemek için handleResponse adlı bir metodun kullanılacağını belirtir.
         );
 
 
