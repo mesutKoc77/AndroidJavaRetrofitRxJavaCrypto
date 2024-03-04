@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         retrofit=new Retrofit.Builder().baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
+        
 
         loadData();
 
